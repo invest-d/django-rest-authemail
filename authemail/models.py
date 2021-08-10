@@ -184,19 +184,19 @@ class SignupCode(AbstractBaseCode):
 
     objects = SignupCodeManager()
 
-    def send_signup_email(self, prefix: str=None):
+    def send_signup_email(self, prefix: str=None, ctxt: dict=None):
         if not prefix:
             prefix = 'signup_email'
-        self.send_email(prefix)
+        self.send_email(prefix=prefix, ctxt=ctxt)
 
 
 class PasswordResetCode(AbstractBaseCode):
     objects = PasswordResetCodeManager()
 
-    def send_password_reset_email(self, prefix: str=None):
+    def send_password_reset_email(self, prefix: str=None, ctxt: dict=None):
         if not prefix:
             prefix = 'password_reset_email'
-        self.send_email(prefix)
+        self.send_email(prefix=prefix, ctxt=ctxt)
 
 
 class EmailChangeCode(AbstractBaseCode):
