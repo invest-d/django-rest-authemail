@@ -183,16 +183,18 @@ class SignupCode(AbstractBaseCode):
 
     objects = SignupCodeManager()
 
-    def send_signup_email(self):
-        prefix = 'signup_email'
+    def send_signup_email(self, prefix: str=None):
+        if not prefix:
+            prefix = 'signup_email'
         self.send_email(prefix)
 
 
 class PasswordResetCode(AbstractBaseCode):
     objects = PasswordResetCodeManager()
 
-    def send_password_reset_email(self):
-        prefix = 'password_reset_email'
+    def send_password_reset_email(self, prefix: str=None):
+        if not prefix:
+            prefix = 'password_reset_email'
         self.send_email(prefix)
 
 
@@ -201,14 +203,16 @@ class EmailChangeCode(AbstractBaseCode):
 
     objects = EmailChangeCodeManager()
 
-    def send_email_change_emails(self):
-        prefix = 'email_change_notify_previous_email'
-        self.send_email(prefix)
+    def send_email_change_emails(self, prefix_notify_to_prev: str=None, prefix_send_to_new: str=None):
+        if not prefix_notify_to_prev:
+            prefix_notify_to_prev = 'email_change_notify_previous_email'
+        self.send_email(prefix_notify_to_prev)
 
-        prefix = 'email_change_confirm_new_email'
+        if not prefix_send_to_new:
+            prefix_send_to_new = 'email_change_confirm_new_email'
         ctxt = {
             'email': self.email,
             'code': self.code
         }
 
-        send_multi_format_email(prefix, ctxt, target_email=self.email)
+        send_multi_format_email(prefix_send_to_new, ctxt, target_email=self.email)
