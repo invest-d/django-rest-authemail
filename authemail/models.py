@@ -165,13 +165,14 @@ class AbstractBaseCode(models.Model):
     class Meta:
         abstract = True
 
-    def send_email(self, prefix):
-        ctxt = {
-            'email': self.user.email,
-            'first_name': self.user.first_name,
-            'last_name': self.user.last_name,
-            'code': self.code
-        }
+    def send_email(self, prefix, ctxt: dict=None):
+        if not ctxt:
+            ctxt = {
+                'email': self.user.email,
+                'first_name': self.user.first_name,
+                'last_name': self.user.last_name,
+                'code': self.code
+            }
         send_multi_format_email(prefix, ctxt, target_email=self.user.email)
 
     def __str__(self):
@@ -203,16 +204,23 @@ class EmailChangeCode(AbstractBaseCode):
 
     objects = EmailChangeCodeManager()
 
-    def send_email_change_emails(self, prefix_notify_to_prev: str=None, prefix_send_to_new: str=None):
+    def send_email_change_emails(
+        self,
+        prefix_notify_to_prev: str=None,
+        prefix_send_to_new: str=None,
+        ctxt: dict=None
+    ):
         if not prefix_notify_to_prev:
             prefix_notify_to_prev = 'email_change_notify_previous_email'
         self.send_email(prefix_notify_to_prev)
 
         if not prefix_send_to_new:
             prefix_send_to_new = 'email_change_confirm_new_email'
-        ctxt = {
-            'email': self.email,
-            'code': self.code
-        }
+
+        if not ctxt:
+            ctxt = {
+                'email': self.email,
+                'code': self.code
+            }
 
         send_multi_format_email(prefix_send_to_new, ctxt, target_email=self.email)
