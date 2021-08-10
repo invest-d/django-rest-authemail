@@ -5,6 +5,8 @@
 __pycache__
 build
 dist
+.python-version
+.venv/
 
 # Django files
 db.sqlite3
