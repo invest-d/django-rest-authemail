@@ -19,7 +19,7 @@ Features
 - Token authentication.
 - User models in the admin interface include inlines for signup and password reset codes.
 - An example project is included and contains example UI templates.
-- Version `2.0.7`
+- Version `2.0.6-suzuki1`
 	- You can now pass any context as an argument to the email template.
 	- You can now freely specify the file name to be used as an email template.
 - Version `2.0.6` and beyond
