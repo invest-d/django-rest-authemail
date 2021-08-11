@@ -19,6 +19,9 @@ Features
 - Token authentication.
 - User models in the admin interface include inlines for signup and password reset codes.
 - An example project is included and contains example UI templates.
+- Version `2.0.7`
+	- You can now pass any context as an argument to the email template.
+	- You can now freely specify the file name to be used as an email template.
 - Version `2.0.6` and beyond
 	- Supports and tested with Python 3.6, 3.7, and 3.8.
 	- Supports and tested with Django 2.2.8, 2.2.13, 3.0, and 3.1.
